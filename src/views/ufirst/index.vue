@@ -1,7 +1,7 @@
 <template>
   <div style="padding:30px;">
-    <h2>新增專案</h2>
-    <SearchBar @showDialog="openDialog" />
+    <h2>專案列表</h2>
+    <SearchBar @showDialog="openDialog" @saerchText="saerchText" />
     <el-table
       :data="tableData"
       style="width: 100%"
@@ -57,7 +57,9 @@ export default {
   },
   data() {
     return {
-      showDialog: false
+      showDialog: false,
+      saerchFilter: '',
+      FilterTable: []
     }
   },
   create() {
@@ -65,8 +67,15 @@ export default {
   },
   computed: {
     tableData() {
-      return this.$store.getters['ufirst/allList']
+      const a = this.saerchFilter
+      if (!a) {
+        return this.$store.getters['ufirst/allList']
+      }
+      return this.$store.getters['ufirst/allList'].filter((item) => {
+        return item.name.includes(a) || String(item.id) === a || item.address === a
+      })
     }
+
   },
   beforeCreate() {
     if (this.$store._modules.root._children.ufirst === undefined) {
@@ -84,6 +93,9 @@ export default {
     },
     openDialog() {
       this.showDialog = true
+    },
+    saerchText(value) {
+      this.saerchFilter = value
     }
   }
 
