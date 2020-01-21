@@ -1,22 +1,7 @@
 <template>
   <div style="padding:30px;">
     <h2>新增專案</h2>
-    <div class="filter-container">
-      <el-input placeholder="Title" style="width: 200px;" class="filter-item" />
-
-      <el-button class="filter-item" type="primary" icon="el-icon-search">
-        Search
-      </el-button>
-      <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit">
-        Add   {{ all }}
-      </el-button>
-      <el-button class="filter-item" type="primary" icon="el-icon-download">
-        Export
-      </el-button>
-      <el-checkbox class="filter-item" style="margin-left:15px;">
-        reviewer
-      </el-checkbox>
-    </div>
+    <SearchBar @showDialog="openDialog" />
     <el-table
       :data="tableData"
       style="width: 100%"
@@ -45,52 +30,41 @@
         </template>
       </el-table-column>
       <el-table-column label="操作">
-        <template slot-scope="scope">
+        <template>
           <el-button
             size="mini"
-            @click="handleEdit(scope.$index, scope.row)"
           >编辑</el-button>
           <el-button
             size="mini"
             type="danger"
-            @click="handleDelete(scope.$index, scope.row)"
           >删除</el-button>
         </template>
       </el-table-column>
     </el-table>
+    <DialogAddproject :show-dialog="showDialog" @showDialog="closeDialog" />
   </div>
 </template>
 
 <script>
 import ufirst from '../../store/modules/ufirst/index'
+import DialogAddproject from '../../components/Ufirst/Dialog/DialogAddproject'
+import SearchBar from '../../components/Ufirst/SearchBar/index'
 
 export default {
+  components: {
+    DialogAddproject,
+    SearchBar
+  },
   data() {
     return {
-      tableData: [{
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1517 弄'
-      }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1519 弄'
-      }, {
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1516 弄'
-      }]
+      showDialog: false
     }
   },
   create() {
     this.$store.registerModule('ufirst', ufirst())
   },
   computed: {
-    all() {
+    tableData() {
       return this.$store.getters['ufirst/allList']
     }
   },
@@ -105,14 +79,13 @@ export default {
     }
   },
   methods: {
-    handleEdit(index, row) {
-    //   console.log(index, row)
-    //   console.log(this.$store)
-      console.log(this.$store.getters['ufirst/allList'])
+    closeDialog() {
+      this.showDialog = false
     },
-    handleDelete(index, row) {
-      console.log(index, row)
+    openDialog() {
+      this.showDialog = true
     }
   }
+
 }
 </script>

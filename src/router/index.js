@@ -67,6 +67,7 @@ export const constantRoutes = [
         component: () => import('@/views/ufirst/bank'),
         meta: { title: '新機接列表', icon: 'dashboard' }
       }
+
     ]
   },
   // 404 page must be placed at the end !!!
@@ -74,13 +75,11 @@ export const constantRoutes = [
 ]
 
 const createRouter = () => new Router({
-  // mode: 'history', // require service support
+  mode: 'history', // require service support
   routes: constantRoutes
 })
 
 const router = createRouter()
-
-// Detail see: https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
 export function resetRouter() {
   const newRouter = createRouter()
   router.matcher = newRouter.matcher // reset router
