@@ -1,13 +1,19 @@
 <template>
-  <el-form ref="dataForm" :model="dataForm" label-position="left" label-width="20%" style="width: 70%; margin-left:10%;">
-    <el-form-item label="注意事項">
-      <tinymce v-model="dataForm.content" :height="300" :width="'100%'" style="overflow:auto" />
-    </el-form-item>
-    <el-form-item label="預覽">
-      <div class="editor-content" style=" width:100%; overflow: auto;" v-html="dataForm.content" />
-    </el-form-item>
-    <el-button type="primary" @click="editNotice">上一步</el-button>
-  </el-form>
+  <div>
+    <el-form ref="dataForm" :model="dataForm" label-position="top" style="width: 100%;">
+      <el-form-item label="注意事項">
+        <el-tabs type="border-card">
+          <el-tab-pane label="編輯">
+            <tinymce v-model="dataForm.content" :height="300" :width="'100%'" style="overflow:auto" />
+          </el-tab-pane>
+          <el-tab-pane label="預覽">
+            <div class="editor-content" style=" width:100%; height:100%; overflow: auto;" v-html="dataForm.content" />
+          </el-tab-pane>
+        </el-tabs>
+      </el-form-item>
+    </el-form>
+    <el-button type="primary" style="margin-top:30px;" @click="editNotice">上一步</el-button>
+  </div>
 </template>
 <script>
 import Tinymce from '@/components/from/Tinymce'
@@ -18,39 +24,375 @@ export default {
   data() {
     return {
       dataForm: {
-        content: `<div class="editor-content" style="border: 3px solid rgb(204, 204, 204); width: 600px;">
+        content: `<div class="editor-content" >
                     <h1>注意事項</h1>
-                    <p style="text-align: center; font-size: 15px;">&nbsp;</p>
-                    <ol>
-                    <li><strong>test1</strong></li>
-                    <li><span style="color: #0000ff;">test2</span></li>
-                    <li><span style="color: #ff0000;"><em>test3</em></span></li>
-                    <li><span style="text-decoration: line-through;">test4</span><br><hr>
-                    <table style="border-collapse: collapse; width: 64.0143%; margin-left: auto; margin-right: auto;" border="1">
-                    <tbody>
-                    <tr>
-                    <td style="width: 16.6667%; text-align: center;">1</td>
-                    <td style="width: 16.6667%; text-align: center;">2</td>
-                    <td style="width: 16.6667%; text-align: center;">3</td>
-                    <td style="width: 16.6667%; text-align: center;">4</td>
-                    </tr>
-                    <tr>
-                    <td style="width: 16.6667%; text-align: center;">row</td>
-                    <td style="width: 16.6667%; text-align: center;">row</td>
-                    <td style="width: 16.6667%; text-align: center;">row</td>
-                    <td style="width: 16.6667%; text-align: center;">row</td>
-                    </tr>
-                    <tr>
-                    <td style="width: 16.6667%; text-align: center;">row</td>
-                    <td style="width: 16.6667%; text-align: center;">row</td>
-                    <td style="width: 16.6667%; text-align: center;">row</td>
-                    <td style="width: 16.6667%; text-align: center;">row</td>
-                    </tr>
-                    </tbody>
-                    </table>
-                    </li>
-                    </ol>
-                  </div>`
+                    <div class="box">
+                    <div class="inside_order_way">
+                        <h5>優惠內容：</h5>
+                        <ul>
+                            <li>指定區域係指臺北市/新北市&lt;-&gt;臺北松山國際機場、臺北市/新北市/桃園市&lt;-&gt;桃園國際機場、臺中市&lt;-&gt;臺中國際機場、高雄市&lt;-&gt;高雄國際機場。</li>
+                            <li>本服務限遠東頂級快樂卡正附卡持卡人本人使用，當次出國至多可免費使用2次(接/送各1次)，正附卡分開計算，每次使用前持卡人須於使用當月或前2個月內，刷遠東頂級快樂卡支付本人當次出國國際線機票全額或國外旅遊團費80%且單筆消費金額須滿NT$20,000(含)以上，每刷機票或團費成功一次，即享指定區域免費機場接送服務來回各一次。若未達消費門檻或超過使用次數，每次使用將扣除正卡持卡人之快樂購卡點數4,000點，若帳上無點數或點數不足，則每次使用將自信用卡帳單收取NT$1,200，列帳時間依遠銀系統為準。
+                            </li>
+                            <li>請於預約時提供信用卡卡號(使用服務時需出示該信用卡)、刷卡日期及金額，以確認服務使用資格，正、附卡免費使用之消費門檻、次數皆分開計算。</li>
+                            <li>使用服務時須出示遠東頂級快樂卡(需與預約時之卡號相同) 及身份證明文件(護照或三照之一)供司機確認，未出示者，視同自費預約，車費需自持卡人信用卡帳單收取NT$1,200。</li>
+                            <li>跨區接送至各機場服務範圍及價格請參考「跨區接送區域及加價表」，並由持卡人自行支付費用。</li>
+                        </ul>
+
+                        <h5>優惠期間：</h5>
+                        <div>2019年5月15日~2019年12月31日止</div>
+                        <h5>優惠對象：</h5>
+                        <div>遠東頂級快樂卡持卡人</div>
+                        <h5>服務專線：</h5>
+                        <div>04-22063029</div>
+                        <h5>跨區接送區域及加價表(單位 NT$）：</h5>
+                        <div>
+                            <table class="table table-style_a">
+                                <thead>
+                                    <tr>
+                                        <th>接送區域</th>
+                                        <th>桃園國際機場</th>
+                                        <th>臺北松山<br>國際機場</th>
+                                        <th>高雄小港<br>國際機場</th>
+                                        <th>臺中清泉崗機場</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th>基隆市</th>
+                                        <td>310</td>
+                                        <td>120</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <th>台北市</th>
+                                        <td>免費</td>
+                                        <td>免費</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <th>新北市</th>
+                                        <td>免費</td>
+                                        <td>免費</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <th>桃園市</th>
+                                        <td>免費</td>
+                                        <td>120</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <th>宜蘭縣</th>
+                                        <td>1,240</td>
+                                        <td>520</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <th>新竹縣</th>
+                                        <td>310</td>
+                                        <td>420</td>
+                                        <td>-</td>
+                                        <td>720</td>
+                                    </tr>
+                                    <tr>
+                                        <th>苗栗縣</th>
+                                        <td>940</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>530</td>
+                                    </tr>
+                                    <tr>
+                                        <th>台中市</th>
+                                        <td>1,220</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>免費</td>
+                                    </tr>
+                                    <tr>
+                                        <th>彰化縣</th>
+                                        <td>1,720</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>430</td>
+                                    </tr>
+                                    <tr>
+                                        <th>南投縣</th>
+                                        <td>1,780</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>730</td>
+                                    </tr>
+                                    <tr>
+                                        <th>雲林縣</th>
+                                        <td>2,080</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>930</td>
+                                    </tr>
+                                    <tr>
+                                        <th>嘉義縣</th>
+                                        <td>3,270</td>
+                                        <td>-</td>
+                                        <td>2,620</td>
+                                        <td>1,530</td>
+                                    </tr>
+                                    <tr>
+                                        <th>臺南市</th>
+                                        <td>3,570</td>
+                                        <td>-</td>
+                                        <td>1,510</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <th>高雄市</th>
+                                        <td>4,170</td>
+                                        <td>-</td>
+                                        <td>免費</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <th>屏東縣</th>
+                                        <td>5,220</td>
+                                        <td>-</td>
+                                        <td>970</td>
+                                        <td>-</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h5>注意事項：</h5>
+                        <ul>
+                            <li>預約時間：持卡人欲使用本服務時，應於出發日三個工作天前預約；連續假期及春節時段應於出發日七個工作天前預約，工作天計算不含出發當日，週六、日及國定假日；每次預約限預約2個月內之服務。（<a href="order_price.aspx#a3">連續假期定義請見連續假期說明表</a>）</li>
+                            <li>預約行程變更/取消：
+                                <ul>
+                                    <li>變更時間/預約資料：
+                                        <ul>
+                                            <li>預約之持卡人欲變更資料須於原約定時間前24小時來電服務專線；惟如遇春節或連續假期，則須於七個工作天前來電。</li>
+                                            <li>若異動日期或增加安全座椅（增高座墊）則須於三個工作天前來電異動，連續假期須於七個工作天前來電。</li>
+                                            <li>如未於可受理異動時間之前來電，則預約接送資料無法變更。</li>
+                                        </ul>
+                                    </li>
+                                    <li>網站取消預約：
+                                        <ul>
+                                            <li>如欲取消接送行程，持卡人須於原約定時間前24小時至專屬預約網站取消行程。</li>
+                                            <li>預約未取消或24小時內取消者視同使用乙次服務，持卡人仍須支付全部費用；遠東商銀會自持卡人信用卡帳單收取NT$1,200/趟。</li>
+                                        </ul>
+                                    </li>
+                                    <li>電話取消預約：
+                                        <ul>
+                                            <li>預約未取消或24小時內取消者視同使用乙次服務，持卡人仍須支付全部費用；遠東商銀會自持卡人信用卡帳單收取NT$1,200/趟。</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>使用日前一日以簡訊將所派司機、車輛等相關資訊通知持卡人，並於持卡人所預約之時間準時於預約地點等候。</li>
+                            <li>「肯驛國際」提供BENZ/LEXUS或同等級進口車四人座車種接送服務，若持卡人需指定七人座車則不須另行加價。持卡人不得指定車輛廠牌，最終承載量須以不妨害行車安全為前提，「肯驛國際」保留最終決定派車權。</li>
+                            <li>送機待時：依預約時間到達持卡人指定地點，持卡人本人或同行者如逾時30分鐘以上，則司機無法繼續等候，且視同使用乙次服務；持卡人仍須支付費用。若持卡人須待時接送，需視司機行程允許，第31分鐘起，每小時酌收待時費用NT$300，不足一小時以一小時計算。「肯驛國際」保留接受持卡人待時接送權利。
+                            </li>
+                            <li>接機待時：接機案件最長等候時間為60分鐘，若超過60分鐘以上，仍無法與持卡人聯繫，則視同持卡人已使用乙次服務，預訂費用將不退還；若持卡人須待時接送，需視司機行程允許，第61分鐘起，每小時酌收待時費用NT$300，不足一小時以一小時計算，最長等候120分鐘（依航班實際抵達時間起算）。「肯驛國際」保留接受持卡人待時接送權利。
+                            </li>
+                            <li>接或送地點：由持卡人本人指定單一定點接或送服務。本項服務不會沿途接送其他持卡人或中途停靠、休息，若需沿途增加停靠點，須以順向為原則，客戶不用先行上車與最後下車，一切依據規畫行程路線順暢為準則。收費標準視持卡人接送地點與停靠點之距離收費，由「肯驛國際」客服中心線上報價，每加一個停靠點須加收NT$200，停靠點之間的距離以5公里為限，超過第5公里起每公里加收NT$50，未滿1公里者，以1公里計。加點停靠服務僅接受電話預約，恕不接受網路預約。「肯驛國際」保留接受持卡人加點停靠之權利。
+                            </li>
+                            <li>車輛調度：如遇連續假期造成車輛調度問題時，「肯驛國際」得以計程車做為替代方案以順利完成接送服務，持卡人如未同意車輛調度的服務條款，將無法完成本項服務的預約。</li>
+                            <li>為維護後續乘客之權益及車內清潔，嚴禁於車內抽煙、嚼檳榔、飲食，持卡人若因上述情事或車內飲食，導致車輛毀損、髒亂或殘留異味，須由持卡人賠償相關修繕、清潔及營業損失費用NT$800。</li>
+                            <li>夜間服務費用：預約之送機或接機服務時間為夜間21：00(含)～07：00(含)時段者，須加收夜間服務費用NT$200。</li>
+                            <li>舉牌費用：如須舉牌另外酌收NT$200舉牌費。</li>
+                            <li>兒童安全座椅/寵物加價說明，請詳閱「承載人數及載運行李說明」。</li>
+                            <li>特定地區加價：持卡人指定之接送地點若為特定地區，須酌收特定地區加價費用（<a href="order_price.aspx#a1">詳見特定地區加價表</a>）。</li>
+                            <li>現場認證：限持卡人本人使用，上車前須出示本人遠東信用卡及身份證明文件（護照或三照之一）供司機認證，未出示信用卡者，視同自費預約，依定價八折收取機場接送費用。</li>
+                            <li>乘客保險：每趟接送服務「肯驛國際」均為乘客投保乘客險，每一位乘客之投保金額為300萬元。</li>
+                            <li>同行人數：除限定持卡人本人使用外，如行李加上同行家人或友人未超過車輛所乘之範圍內，皆可一同搭乘，但以一車為限。（一車限定人數依交通法規規定，專屬預約網站「肯驛國際」保留接受同行人數之權利）</li>
+                            <li>行李裝載：為確保行車安全，轎車內空間僅限乘坐貴賓，所有行李（包含手提行李）皆必須放置後車廂，放置重要文件、護照、錢包……等貴重物品之小肩包，在不影響行車安全下可隨身攜帶，惟最終承載量須以不妨害行車安全為前提，專屬預約網站「肯驛國際」有最終決定派車權。<br>※
+                                特殊行李限制及承載人數等相關注意事項，請詳閱「承載人數及載運行李說明」。</li>
+                            <li>本服務僅提供一般平面道路機場接送服務，恕不配合指定進入地下/立體停車場，或搬運行李至客戶指定地點，如：搬運行李上/下樓。</li>
+                            <li>「肯驛國際」保留隨時修改、變更或終止本活動之權利，無須事先通知。參考定價若有調整，請依「肯驛國際」公告定價為準。</li>
+                        </ul>
+                        <h5>承載人數及載運行李說明：</h5>
+                        <ul>
+                            <li>乘載人數/行李件數說明：
+                                <div class="Rwd-table">
+                                    <table width="100%" cellspacing="0" cellpadding="0" class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>車型</th>
+                                                <th>乘客人數上限</th>
+                                                <th>安全座椅數量限制</th>
+                                                <th>行李件數</th>
+                                                <th>備註說明</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th rowspan="2">轎車</th>
+                                                <td>4<br>2</td>
+                                                <td>0<br>1</td>
+                                                <td rowspan="2">3件(含)以內</td>
+                                                <td rowspan="2">可放20吋3件 <br>
+                                                可放25吋2件 <br>
+                                                可放27吋2件<br>
+                                                可放29吋1件</td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td>1</td>
+                                            </tr>
+                                                <tr>
+                                                <th rowspan="3">七人座</th>
+                                                <td>6</td>
+                                                <td>0</td>
+                                                <td rowspan="3">6件(含)以內</td>
+                                                <td rowspan="3">特大型箱(30吋以上)僅能承載4件</td>
+                                            </tr>
+                                            <tr>
+                                                <td>5</td>
+                                                <td>1</td>
+                                            </tr>
+                                            <tr>
+                                                <td>4</td>
+                                                <td>2</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="Rwd-mobile">
+                                    <table width="100%" cellspacing="0" cellpadding="0" class="table table02">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="2" class="">轎車</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th width="50%">乘客人數上限</th>
+                                                <th>安全座椅數量限制</th>
+                                            </tr>
+                                            <tr>
+                                                <td>4</td>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td>1</td>
+                                            </tr>
+                                            <tr>
+                                                <th>行李件數</th>
+                                                <th>備註說明</th>
+                                            </tr>
+                                            <tr>
+                                                <td>3件(含)以內</td>
+                                                <td>可放20吋3件 <br>
+                                                可放25吋2件 <br>
+                                                可放27吋2件<br>
+                                                可放29吋1件</td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                    <table width="100%" cellspacing="0" cellpadding="0" class="table table02">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="2">七人座</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th width="50%">乘客人數上限</th>
+                                                <th>安全座椅數量限制</th>
+                                            </tr>
+                                            <tr>
+                                                <td>6</td>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <td>5</td>
+                                                <td>1</td>
+                                            </tr>
+                                            <tr>
+                                                <td>4</td>
+                                                <td>2</td>
+                                            </tr>
+                                            <tr>
+                                                <th>行李件數</th>
+                                                <th>備註說明</th>
+                                            </tr>
+                                            <tr>
+                                                <td>36件(含)以內</td>
+                                                <td>特大型箱(30吋以上)僅能承載4件</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <p>* 請貴賓依照人數、安全座椅數及行李數，選擇適合車型。</p>
+                                <p>* 實際人數行李若超出預約登記之數量，超出之人數行李若無法乘載，須請貴賓自行處理，無法臨時更改車型。</p>
+                            </li>
+                            <li><strong>20吋登機箱(含)以上尺寸皆統稱為「大行李」，大行李尺寸說明如下，「紙箱」則不論大小均視為1件大行李</strong>
+                                <ul>
+                                    <li>行李尺寸
+                                        <ul>
+                                            <li>登機箱(20吋)</li>
+                                            <li>中型箱(22～25吋)</li>
+                                            <li>大型箱(26～29吋)</li>
+                                            <li>特大型箱(30吋以上)</li>
+                                        </ul>
+                                    </li>
+                                    <li>小行李泛指可攜帶上飛機的手提袋、背包等。</li>
+                                    <li>特大型箱(30吋以上)視為2件大行李，須請您在填寫機接預約資料時事先備註。</li>
+                                    <li>特殊行李，須登記為1件大行李，包含但不限於高爾夫球具、輪椅、娃娃車、圖畫、雪撬、衝浪板等，由於各特殊行李長度不一，請於預約時備註。</li>
+                                </ul>
+                                <p>
+                                    <img src="https://www.youfirst.com.tw/img/other01.jpg" width="100%" alt="行李尺寸">
+                                </p>
+                            </li>
+                            <li><strong>兒童安全座椅說明</strong>因應政府道路交通管理處罰條例第三十一條第三項規定、『小型車附載幼童安全乘坐實施及宣導辦法』規範，幼童（指年齡在四歲以下，且體重在十八公斤以下之兒童）、12歲以下或體重三十六公斤以下之兒童乘坐小客車，須依相關規定繫安全帶、使用安全座椅（增高座墊）乘坐。預約本服務如有幼童或兒童同行，持卡人應於預約時主動告知。如需使用安全座椅（增高座墊）設備，除自費價之外，每趟每張安全座椅（增高座墊）須另加收NT$300元。如持卡人預約本服務時未主動告知有幼童或兒童同行或未加費選擇安全座椅（增高座墊）者，「肯驛國際」將全面拒絕提供接送服務，祈請見諒。
+                                <ul>
+                                    <li>因車型限制，每車最多限預約二張(含)安全座椅(增高座墊)。</li>
+                                    <li>若預約二張(含)安全座椅(增高座墊)須指定七人座車。</li>
+                                    <li>除接送禮遇優惠價之外，每趟每張兒童座椅(增高座墊)須另加收NT$300。</li>
+                                    <li>兒童安全座椅(增高座墊)規格有三種，請持卡人於預約時告知所需規格。
+                                        <ul>
+                                            <li>嬰兒型(0～1歲或體重未達十公斤)</li>
+                                            <li>幼童型(1～4歲且體重在十公斤以上至十八公斤以下)</li>
+                                            <li>兒童增高坐墊(4～12歲或體重逾十八公斤至三十六公斤以下，如其體型可依規定使用安全帶者，不在此限)
+                                            </li>
+                                            <p><img src="https://www.youfirst.com.tw/img/BabySafetySeat.jpg" width="100%" alt="安全座椅"></p>
+                                            <p>【溫馨提示】安全座椅皆以符合政府規範為主，恕無法指定品牌，如有任何疑慮建議改以其他交通方式至機場。</p>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><strong>寵物籠尺寸說明</strong>：為維護所有車輛搭乘者權益以及車輛行駛間安全考量，預約本服務如欲攜帶寵物同行，持卡人須另支付清潔費用NT$800並升等七人座車，請於預約時主動告知並配合說明事項，若無法配合或未於預約時告知，恕無法提供寵物同行接送服務。
+                                <ul>
+                                    <li><strong>寵物籠尺寸說明</strong>：
+                                        <ul>
+                                            <li>高：由地面至耳尖或頭頂（以較高者為準）。寵物自然站立時耳朵不可觸及箱頂。</li>
+                                            <li>長：不得少於寵物身長加半高之總合。 </li>
+                                            <li>寬：不得少於寵物二倍肩寬。</li>
+                                            <li>籠子空間大小必須足以讓寵物舒適的轉身、站立或躺下。</li>
+                                        </ul>
+                                    </li>
+                                    <li>全程寵物須安置於籠內並放在七人座車行李區載運，每車寵物攜帶上限最多2隻，若寵物未超過14公斤，最多可以有兩隻裝在同一籠子中，超過14公斤則需以單一籠子託運。</li>
+                                </ul>
+                            </li>
+                            <li><strong>特殊行李注意事項</strong>：
+                                <ul>
+                                    <li>基於法令規定，法律明文規定禁止載運之違禁品，如毒品等，恕不接受預約，如遇持卡人自行攜帶，途中如發生執法人員攔檢所發生之刑責將由持卡人自行負責。</li>
+                                    <li>如有特殊行李請於預約時先行告知，如未事先告知，造成當天無法完成接送服務，將視同持卡人使用乙次服務，持卡人仍須支付費用。</li>
+                                    <li>易碎品/貴重物品排除條款：行李中包含易碎物品或貴重物品須於載運前告知，並請自行妥善包裝及負擔保管責任，如客戶評估可放置於後車廂，因而造成物品損壞或遺失，本公司將不負擔相關損害責任。</li>
+                                    <li>基於行車安全考量，如遇承載行李超出車輛可承載範圍而影響行車安全，「肯驛國際」將有權拒絕載運。</li>
+                                    <li>特殊行李載運規範未盡事宜，將依「肯驛國際」客服中心規範為準。</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+              </div>`
       }
     }
   },

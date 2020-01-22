@@ -3,6 +3,11 @@
 @import './transition.scss';
 @import './element-ui.scss';
 @import './sidebar.scss';
+@import './modal/layout';
+@import './modal/note';
+@import './modal/thsrc';
+
+
 
 body {
   height: 100%;
